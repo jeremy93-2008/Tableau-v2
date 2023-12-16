@@ -1,7 +1,7 @@
 
 # ![Tableau Logo](./public/favicon.svg)  Tableau Kanban Board
 
-> [!CAUTION]
+> [!WARNING]
 > This project is currently in development and is not yet ready for production use.
 
 > [!NOTE]
@@ -30,12 +30,7 @@ Welcome to Tableau Kanban Board, an open-source application designed to help you
    Facilitate collaboration among team members by assigning tasks, leaving comments, and attaching files directly within the application. Keep communication centralized and enhance team productivity.
 
 ## Getting started
-
-> [!NOTE]
-> In current development stage, the application is not yet ready for production use. However, you can still run the application locally to test out its features.
-
-... TODO ...
-
+   In current development stage, the application is not yet ready for production use. However, you can still run the application locally to test out its features.
 
 ## Contributions
 Contributions are welcome! If you have ideas for new features, improvements, or bug fixes, please open an issue or submit a pull request. Let's build Tableau Kanban Board together!
