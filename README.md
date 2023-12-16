@@ -36,4 +36,4 @@ Welcome to Tableau Kanban Board, an open-source application designed to help you
 Contributions are welcome! If you have ideas for new features, improvements, or bug fixes, please open an issue or submit a pull request. Let's build Tableau Kanban Board together!
 
 ## License
-This project is licensed under the MIT License, making it open and free for everyone to use and contribute.
+This project is licensed under the Mozilla Public License, making it open and free for everyone to use and contribute.
