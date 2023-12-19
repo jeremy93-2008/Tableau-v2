@@ -2,19 +2,21 @@ version: '3.8'
 
 services:
   web:
-    build: ./app/client
+    build: ./packages/client
     ports:
       - "3000:3000"
     volumes:
         - ./packages/client:/client
+        - /client/node_modules
     depends_on:
         - api
   api:
-    build: ./app/server
+    build: ./packages/server
     ports:
       - "4200:4200"
     volumes:
         - ./packages/server:/server
+        - /server/node_modules
     depends_on:
         - db
   db:
