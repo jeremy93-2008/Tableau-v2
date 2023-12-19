@@ -1,0 +1,111 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String        @id @default(cuid())
+  email          String        @unique
+  name           String
+  Boards         Board[]
+  BoardMember    BoardMember[]
+  TaskAssignedTo TaskMember[]
+  Task           Task[]
+}
+
+model Board {
+  id      String        @id @default(cuid())
+  name    String
+  userId  String?
+  Columns Column[]
+  Members BoardMember[]
+  User    User?         @relation(fields: [userId], references: [id])
+  Task    Task[]
+}
+
+model Column {
+  id      String @id @default(cuid())
+  name    String
+  color   String
+  order   Int
+  boardId String
+  Tasks   Task[]
+  Board   Board  @relation(fields: [boardId], references: [id])
+}
+
+model Task {
+  id          String       @id @default(cuid())
+  name        String
+  description String
+  startDate   DateTime?
+  endDate     DateTime?
+  priority    Int
+  order       Int
+  columnId    String
+  userId      String?
+  boardId     String
+  Column      Column       @relation(fields: [columnId], references: [id])
+  Tracking    Tracking?
+  Checklists  Checklist[]
+  Links       Link[]
+  User        User?        @relation(fields: [userId], references: [id])
+  Board       Board        @relation(fields: [boardId], references: [id])
+  AssignedTo  TaskMember[]
+}
+
+model Tracking {
+  id                String @id @default(cuid())
+  originalEstimate  Int
+  remainingEstimate Int
+  timeSpent         Int
+  taskId            String @unique
+  Task              Task   @relation(fields: [taskId], references: [id])
+}
+
+model Checklist {
+  id     String          @id @default(cuid())
+  name   String
+  items  ChecklistItem[]
+  taskId String          @unique
+  Task   Task            @relation(fields: [taskId], references: [id])
+}
+
+model ChecklistItem {
+  id          String    @id @default(cuid())
+  name        String
+  isCompleted Boolean
+  Checklist   Checklist @relation(fields: [checklistId], references: [id])
+  checklistId String
+}
+
+model Link {
+  id     String @id @default(cuid())
+  name   String
+  url    String
+  taskId String @unique
+  Task   Task   @relation(fields: [taskId], references: [id])
+}
+
+model BoardMember {
+  id      String @id @default(cuid())
+  roleId  String
+  Board   Board  @relation(fields: [boardId], references: [id])
+  boardId String
+  User    User   @relation(fields: [userId], references: [id])
+  userId  String
+}
+
+model TaskMember {
+  id     String @id @default(cuid())
+  Task   Task   @relation(fields: [taskId], references: [id])
+  taskId String
+  User   User   @relation(fields: [userId], references: [id])
+  userId String
+}

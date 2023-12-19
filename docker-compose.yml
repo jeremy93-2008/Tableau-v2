@@ -6,7 +6,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-        - ./app/client:/app/client
+        - ./packages/client:/client
     depends_on:
         - api
   api:
@@ -14,7 +14,7 @@ services:
     ports:
       - "4200:4200"
     volumes:
-        - ./app/server:/app/server
+        - ./packages/server:/server
     depends_on:
         - db
   db:
