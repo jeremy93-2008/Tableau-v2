@@ -6,8 +6,8 @@ import { Board } from '@prisma/client';
 export class BoardController {
   constructor(private readonly boardRepository: BoardRepository) {}
 
-  @Get()
-  async list(): Promise<Board> {
+  @Get('list')
+  async list(): Promise<Board[]> {
     return await this.boardRepository.getBoard()
   }
 }

@@ -6,9 +6,7 @@ import { Board, Prisma } from '@prisma/client';
 export class BoardRepository {
     constructor(private prisma: PrismaService) {}
 
-    getBoard(boardWhereUniqueInput?: Prisma.BoardWhereUniqueInput): Promise<Board | null> {
-        return this.prisma.board.findUnique({
-            where: boardWhereUniqueInput
-        });
+    getBoard(boardWhereUniqueInput?: Prisma.BoardFindManyArgs): Promise<Board[] | null> {
+        return this.prisma.board.findMany(boardWhereUniqueInput)
     }
 }
