@@ -5,4 +5,4 @@ RUN npm install
 COPY ./ ./
 RUN npm run db:generate
 EXPOSE 4200
-CMD ["npm", "run", "start:dev"]
+CMD ["npm", "run", "start:docker"]
