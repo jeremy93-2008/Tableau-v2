@@ -1,15 +1,20 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { verifyToken } from '@clerk/clerk-sdk-node';
+import { AuthService } from './auth.service';
+
+import { JwtPayload } from 'jsonwebtoken';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
+  constructor(private readonly authService: AuthService) {}
+
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<Request>();
     const token = this.extractTokenFromHeader(request);
 
     if (!token) return false;
 
-    let payload = null;
+    let payload: JwtPayload = null;
 
     try {
       payload = await verifyToken(token, {
@@ -17,8 +22,12 @@ export class AuthGuard implements CanActivate {
           process.env.CLERK_SECRET_KEY || process.env.CLERK_API_KEY || '',
         issuer: process.env.CLERK_API_URL || '',
       });
+
+      await this.authService.createOrConnectUser(payload, request);
+
       return payload !== null;
     } catch (e) {
+      console.log(e);
       return false;
     }
   }
