@@ -1,14 +1,17 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "@clerk/nextjs";
+import { User } from "@prisma/client";
 
-export const UserContext = React.createContext<{ currentUser: any } | null>(
-  null,
-);
+export const UserContext = React.createContext<{
+  currentUser: User | undefined;
+}>({
+  currentUser: undefined,
+});
 
 export function UserProvider({ children }: React.PropsWithChildren) {
   const { getToken } = useAuth();
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState<User>();
 
   useEffect(() => {
     getToken().then((token) => {
