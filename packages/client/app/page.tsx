@@ -1,26 +1,14 @@
-"use client";
-import { UserButton, useAuth } from "@clerk/nextjs";
-import { useEffect } from "react";
+import { SignInButton, SignedIn } from "@clerk/nextjs";
 
 export default function Home() {
-  const { getToken } = useAuth();
-
-  useEffect(() => {
-    getToken().then((token) => {
-      const headers = new Headers();
-      headers.set("Authorization", `Bearer ${token}`);
-
-      fetch("http://localhost:4200/api/user/current", {
-        headers,
-      })
-        .then((res) => res.json())
-        .then(console.log);
-    });
-  }, []);
-
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <UserButton />
+      <SignInButton>
+        <span className="text-3xl">Sign In</span>
+      </SignInButton>
+      <SignedIn>
+        <div>This content is visible only to signed in users.</div>
+      </SignedIn>
     </main>
   );
 }

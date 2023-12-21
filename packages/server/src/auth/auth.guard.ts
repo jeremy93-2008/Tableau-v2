@@ -12,7 +12,10 @@ export class AuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest<Request>();
     const token = this.extractTokenFromHeader(request);
 
-    if (!token) return false;
+    if (!token) {
+      console.warn('Token was not found in the request header.');
+      return false;
+    }
 
     let payload: JwtPayload = null;
 

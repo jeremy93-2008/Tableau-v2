@@ -39,9 +39,11 @@ export class AuthService {
             name: user.username ?? user.firstName + ' ' + user.lastName,
             theme: 'light',
             notifyMe: true,
+            profileUrl: user.imageUrl ?? '',
           },
         });
       }
+
       (request as IRequest).user = await this.userRepository.getUser(user.id);
     } catch (e) {
       console.log(e);

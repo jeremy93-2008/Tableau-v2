@@ -8,4 +8,5 @@ export const users: User[] = Array.from({ length: 5 }, () => ({
   email: faker.internet.email(),
   theme: 'dark',
   notifyMe: true,
+  profileUrl: faker.image.avatar(),
 }));
