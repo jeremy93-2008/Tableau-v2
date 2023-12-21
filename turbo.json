@@ -1,7 +1,17 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
-    "db:reset": {},
+    "create:db": {
+      "cache": false
+    },
+    "start:db": {
+      "cache": false,
+      "dependsOn": ["create:db"]
+    },
+    "db:reset": {
+      "cache": false,
+      "dependsOn": ["start:db"]
+    },
     "start:dev": {
       "dependsOn": ["db:reset"]
     },

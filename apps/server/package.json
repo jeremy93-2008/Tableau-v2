@@ -18,9 +18,11 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
+    "create:db": "docker run -d --name tableau-db -p 5432:5432 -v postgres_data:/var/lib/postgresql/data/ -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=password -e POSTGRES_DB=tableau-v2 postgres",
+    "start:db": "docker start tableau-db",
     "db:generate": "npx prisma generate",
     "db:migrate": "npx prisma migrate dev",
-    "db:reset": "npx prisma migrate reset",
+    "db:reset": "npx prisma migrate reset --force",
     "db:seed": "npx prisma db seed --preview-feature"
   },
   "dependencies": {
