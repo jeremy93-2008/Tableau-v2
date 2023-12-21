@@ -1,0 +1,13 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "db:reset": {},
+    "start:dev": {
+      "dependsOn": ["db:reset"]
+    },
+    "build": {
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "type-check": {}
+  }
+}

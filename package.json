@@ -13,7 +13,7 @@
     "turbo": "^1.11.2"
   },
   "workspaces": [
-    "app/*",
+    "apps/*",
     "packages/*"
   ],
   "dependencies": {
