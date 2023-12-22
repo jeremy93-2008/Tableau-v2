@@ -8,12 +8,12 @@
       "cache": false,
       "dependsOn": ["create:db"]
     },
-    "db:reset": {
+    "db:migrate": {
       "cache": false,
       "dependsOn": ["start:db"]
     },
     "start:dev": {
-      "dependsOn": ["db:reset"]
+      "dependsOn": ["db:migrate"]
     },
     "build": {
       "outputs": [".next/**", "!.next/cache/**"]

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "turbo start:dev --continue",
+    "dev": "trap 'docker stop tableau-db' INT TERM && turbo start:dev --continue",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
