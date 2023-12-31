@@ -4,7 +4,7 @@ import { UserRepository } from './user.repository';
 import { AuthService } from '../auth/auth.service';
 import { IRequest } from '../types/http.type';
 
-@Controller('api/user')
+@Controller('user')
 export class UserController {
   constructor(
     private readonly userRepository: UserRepository,

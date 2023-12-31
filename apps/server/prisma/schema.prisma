@@ -24,13 +24,17 @@ model User {
 }
 
 model Board {
-  id      String        @id @default(cuid())
-  name    String
-  userId  String?
-  Columns Column[]
-  Members BoardMember[]
-  User    User?         @relation(fields: [userId], references: [id])
-  Task    Task[]
+  id            String          @id @default(cuid())
+  name          String
+  userId        String?
+  Columns       Column[]
+  Members       BoardMember[]
+  User          User?           @relation(fields: [userId], references: [id])
+  Task          Task[]
+  Tracking      Tracking[]
+  Checklist     Checklist[]
+  ChecklistItem ChecklistItem[]
+  Link          Link[]
 }
 
 model Column {
@@ -69,31 +73,39 @@ model Tracking {
   remainingEstimate Int
   timeSpent         Int
   taskId            String @unique
+  boardId           String
   Task              Task   @relation(fields: [taskId], references: [id])
+  Board             Board  @relation(fields: [boardId], references: [id])
 }
 
 model Checklist {
-  id     String          @id @default(cuid())
-  name   String
-  items  ChecklistItem[]
-  taskId String          @unique
-  Task   Task            @relation(fields: [taskId], references: [id])
+  id      String          @id @default(cuid())
+  name    String
+  items   ChecklistItem[]
+  taskId  String          @unique
+  boardId String
+  Task    Task            @relation(fields: [taskId], references: [id])
+  Board   Board           @relation(fields: [boardId], references: [id])
 }
 
 model ChecklistItem {
   id          String    @id @default(cuid())
   name        String
   isCompleted Boolean
+  Board       Board     @relation(fields: [boardId], references: [id])
+  boardId     String
   Checklist   Checklist @relation(fields: [checklistId], references: [id])
   checklistId String
 }
 
 model Link {
-  id     String @id @default(cuid())
-  name   String
-  url    String
-  taskId String @unique
-  Task   Task   @relation(fields: [taskId], references: [id])
+  id      String @id @default(cuid())
+  name    String
+  url     String
+  taskId  String @unique
+  Task    Task   @relation(fields: [taskId], references: [id])
+  boardId String
+  Board   Board  @relation(fields: [boardId], references: [id])
 }
 
 model BoardMember {

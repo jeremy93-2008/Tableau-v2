@@ -14,6 +14,7 @@ async function bootstrap() {
   });
 
   app.useGlobalGuards(new AuthGlobalService().getGuard());
+  app.setGlobalPrefix('api');
 
   await app.listen(4200, '0.0.0.0');
 }

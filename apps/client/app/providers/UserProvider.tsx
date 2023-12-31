@@ -17,6 +17,7 @@ export function UserProvider({ children }: React.PropsWithChildren) {
     getToken().then((token) => {
       const headers = new Headers();
       headers.set("Authorization", `Bearer ${token}`);
+      headers.set("Content-Type", "application/json");
       fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/current`, {
         headers,
       })
@@ -25,6 +26,14 @@ export function UserProvider({ children }: React.PropsWithChildren) {
           if (!user.email) return;
           setCurrentUser(user);
         });
+
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/board/create`, {
+        headers,
+        method: "POST",
+        body: JSON.stringify({
+          name: "My First Board",
+        }),
+      }).then((res) => res.json());
     });
   }, []);
 
