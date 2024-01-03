@@ -15,11 +15,6 @@ async function bootstrap() {
   });
 
   app.useGlobalGuards(new AuthGlobalService().getGuard());
-  app.useGlobalPipes(
-    new ValidationPipe({
-      enableDebugMessages: true,
-    }),
-  );
   app.setGlobalPrefix('api');
 
   await app.listen(4200, '0.0.0.0');

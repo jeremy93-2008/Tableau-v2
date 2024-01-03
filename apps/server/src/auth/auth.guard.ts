@@ -1,4 +1,9 @@
-import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import {
+  Injectable,
+  CanActivate,
+  ExecutionContext,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { verifyToken } from '@clerk/clerk-sdk-node';
 import { AuthService } from './auth.service';
 
@@ -14,7 +19,7 @@ export class AuthGuard implements CanActivate {
 
     if (!token) {
       console.warn('Token was not found in the request header.');
-      return false;
+      throw new UnauthorizedException();
     }
 
     let payload: JwtPayload = null;
@@ -31,7 +36,7 @@ export class AuthGuard implements CanActivate {
       return payload !== null;
     } catch (e) {
       console.log(e);
-      return false;
+      throw new UnauthorizedException();
     }
   }
 
