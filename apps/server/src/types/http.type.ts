@@ -4,6 +4,6 @@ export interface IRequest extends Request {
   user: User;
 }
 
-export type IMinimalBodyPermission<TBody> = TBody & {
+export type IBody<TBody> = TBody & {
   boardId: string;
 };

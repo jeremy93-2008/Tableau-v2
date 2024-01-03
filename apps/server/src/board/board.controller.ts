@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
-import { BoardRepository } from './board.repository';
 import { Board } from '@prisma/client';
-import { PermissionGuard } from '../permission/permission.guard';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { BoardRepository } from './board.repository';
+import { Permissions } from '../permission/permissions.decorator';
+import { Permission } from '../permission/permission';
 
 @Controller('board')
 export class BoardController {
@@ -12,9 +13,9 @@ export class BoardController {
     return await this.boardRepository.list();
   }
 
-  @UseGuards(PermissionGuard)
   @Post('create')
-  async create(@Body() board: Partial<Board>): Promise<Board> {
+  @Permissions([Permission.WriteBoard])
+  async create(@Body() board: Board): Promise<Board> {
     //return await this.boardRepository.create(board);
     return board as Board;
   }
